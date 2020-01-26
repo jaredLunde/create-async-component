@@ -5,7 +5,7 @@
   "repository": "github:jaredLunde/create-async-component",
   "bugs": "https://github.com/jaredLunde/create-async-component/issues",
   "license": "MIT",
-  "description": "",
+  "description": "A factory function for creating asynchronous React components",
   "keywords": [
     "react",
     "react component",
@@ -13,6 +13,7 @@
   ],
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
+  "types": "dist/cjs/index.d.ts",
   "files": [
     "/dist"
   ],
@@ -56,6 +57,7 @@
     "@typescript-eslint/parser": "latest",
     "babel-plugin-optimize-react": "latest",
     "babel-plugin-typescript-to-proptypes": "latest",
+    "code-split.macro": "^1.0.4",
     "cross-env": "latest",
     "eslint": "latest",
     "eslint-import-resolver-jest": "latest",

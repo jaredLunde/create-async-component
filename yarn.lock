@@ -1962,6 +1962,11 @@ code-point-at@^1.0.0:
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
+code-split.macro@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/code-split.macro/-/code-split.macro-1.0.4.tgz#58ab6c972207dc3e0c562bb0a6acd5e2d2034f27"
+  integrity sha512-SqI7of8tgjR1JvsyHh6b/ImGhwau5VIVYOMFWJXq51dl5h+J6P9UU6IbVlfIsHteLq7tzJ4fTMXaAGARkEj2QQ==
+
 collect-v8-coverage@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/collect-v8-coverage/-/collect-v8-coverage-1.0.0.tgz#150ee634ac3650b71d9c985eb7f608942334feb1"

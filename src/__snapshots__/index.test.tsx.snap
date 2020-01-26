@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createAsyncComponent displays error state 1`] = `
+<DocumentFragment>
+  Error!
+</DocumentFragment>
+`;
+
+exports[`createAsyncComponent displays loading state 1`] = `
+<DocumentFragment>
+  Loading...
+</DocumentFragment>
+`;
+
+exports[`createAsyncComponent resolves promise 1`] = `
+<DocumentFragment>
+  <div>
+    Hello world
+  </div>
+</DocumentFragment>
+`;
+
+exports[`createAsyncComponent returns null if error occured without error handling component 1`] = `<DocumentFragment />`;
+
+exports[`createAsyncComponent works w/ class component 1`] = `
+<DocumentFragment>
+  <div>
+    Hello world
+  </div>
+</DocumentFragment>
+`;
+
+exports[`createAsyncComponent works w/ function component 1`] = `
+<DocumentFragment>
+  <div>
+    Hello world
+  </div>
+</DocumentFragment>
+`;
