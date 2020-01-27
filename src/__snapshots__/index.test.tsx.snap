@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`createAsyncComponent .load() should prevent loading state in production 1`] = `
+<DocumentFragment>
+  <div>
+    Hello world
+  </div>
+</DocumentFragment>
+`;
+
 exports[`createAsyncComponent displays error state 1`] = `
 <DocumentFragment>
   Error!
@@ -21,6 +29,14 @@ exports[`createAsyncComponent resolves promise 1`] = `
 `;
 
 exports[`createAsyncComponent returns null if error occured without error handling component 1`] = `<DocumentFragment />`;
+
+exports[`createAsyncComponent should cache on first load in production 1`] = `
+<DocumentFragment>
+  <div>
+    Hello world
+  </div>
+</DocumentFragment>
+`;
 
 exports[`createAsyncComponent works w/ class component 1`] = `
 <DocumentFragment>

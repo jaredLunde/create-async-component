@@ -16,22 +16,31 @@ export interface AsyncComponentOptions {
   ) => React.ReactNode | React.ReactNode[]
 }
 
+type AsyncComponentType<P> = React.FC<P> & {
+  load: AsyncComponentGetter<P>
+}
+
 function createAsyncComponent<P>(
   componentGetter: AsyncComponentGetter<P>,
   options: AsyncComponentOptions = {property: 'default'}
-): React.FC<P> {
+): AsyncComponentType<P> {
   const {property = 'default', loading, error} = options
-  return function AsynComponent(props) {
+  let cachedComponent: ModuleComponent<P>
+  const PROD =
+    typeof process !== 'undefined' && process.env.NODE_ENV === 'production'
+
+  function AsyncComponent(props: P) {
     const [Component, setComponent] = useState<ModuleComponentInterop<P>>(
-      componentGetter
+      cachedComponent || componentGetter
     )
     const [exception, setException] = useState<any>(null)
 
     useEffect(() => {
       if (typeof Component.then !== 'undefined')
         (Component as Promise<ModuleComponent<P>>)
-          .then((value: ModuleComponent<P>): void => {
-            setComponent(value)
+          .then((mod: ModuleComponent<P>): void => {
+            if (PROD) cachedComponent = mod
+            setComponent(mod)
           })
           .catch(err => setException(err))
     }, [])
@@ -45,7 +54,18 @@ function createAsyncComponent<P>(
       : loading
       ? loading(props)
       : null
-  } as React.FC<P>
+  }
+
+  AsyncComponent.load = () => {
+    if (PROD)
+      return (
+        cachedComponent ||
+        Promise.resolve(componentGetter()).then(mod => (cachedComponent = mod))
+      )
+    return Promise.resolve(componentGetter())
+  }
+
+  return AsyncComponent as AsyncComponentType<P>
 }
 
 export default createAsyncComponent

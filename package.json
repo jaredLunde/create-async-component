@@ -1,6 +1,6 @@
 {
   "name": "create-async-component",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://github.com/jaredLunde/create-async-component#readme",
   "repository": "github:jaredLunde/create-async-component",
   "bugs": "https://github.com/jaredLunde/create-async-component/issues",
@@ -56,6 +56,7 @@
     "@testing-library/react": "latest",
     "@testing-library/react-hooks": "latest",
     "@types/jest": "latest",
+    "@types/node": "^13.5.0",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@typescript-eslint/eslint-plugin": "latest",
