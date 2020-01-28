@@ -37,8 +37,8 @@ A factory function for creating asynchronous React components
 import createAsyncComponent from 'create-async-component'
 
 const AsyncComponent = createAsyncComponent(() => import('./Home'), {
-  loading: 'Loading',
-  error: 'Error',
+  loading: () => <div>Loading...</div>,
+  error: () => <div>Error!</div>,
   property: 'default',
 })
 
