@@ -41,6 +41,9 @@ const AsyncComponent = createAsyncComponent(() => import('./Home'), {
   error: 'Error',
   property: 'default',
 })
+
+// Preload your component
+AsyncComponent.load()
 ```
 
 ## API
@@ -56,6 +59,15 @@ function createAsyncComponent<P>(
 | --------------- | ------------------------------------------------- | --------- | ------------------------------------------------------------- |
 | componentGetter | [`AsyncComponentGetter`](#asynccomponentgetter)   | Yes       | A function that returns a Promise e.g. an `import()` function |
 | options         | [`AsyncComponentOptions`](#asynccomponentoptions) | No        | See [`AsyncComponentOptions`](#asynccomponentoptions)         |
+
+### Preload your component
+
+```typescript
+// Simply call its load() metod
+AsyncComponent.load()
+// Real world example
+<Link onMouseEnter={AsyncComponent.load}/>
+```
 
 ### `AsyncComponentGetter`
 
@@ -74,20 +86,17 @@ export type ModuleComponentInterop<P> =
 ### `AsyncComponentOptions`
 
 ```typescript
-interface AsyncComponentOptions {
+interface AsyncComponentOptions<P> {
   // The property within the module object where
   // your component resides.
   // Default: "default"
   property?: string
   // A component you'd like to display while the async
   // component is loading.
-  loading?: (props: Record<string, any>) => React.ReactNode | React.ReactNode[]
+  loading?: (props: P) => React.ReactNode | React.ReactNode[]
   // A component you'd like to display when the async
   // component is Promise is rejected.
-  error?: (
-    exception: any,
-    props: Record<string, any>
-  ) => React.ReactNode | React.ReactNode[]
+  error?: (exception: any, props: P) => React.ReactNode | React.ReactNode[]
 }
 ```
 

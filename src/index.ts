@@ -7,13 +7,10 @@ export type ModuleComponentInterop<P> =
   | Promise<ModuleComponent<P>>
   | ModuleComponent<P>
 export type AsyncComponentGetter<P> = () => ModuleComponentInterop<P>
-export interface AsyncComponentOptions {
+export interface AsyncComponentOptions<P> {
   property?: string
-  loading?: (props: Record<string, any>) => React.ReactNode | React.ReactNode[]
-  error?: (
-    exception: any,
-    props: Record<string, any>
-  ) => React.ReactNode | React.ReactNode[]
+  loading?: (props: P) => React.ReactNode | React.ReactNode[]
+  error?: (exception: any, props: P) => React.ReactNode | React.ReactNode[]
 }
 
 type AsyncComponentType<P> = React.FC<P> & {
@@ -22,7 +19,7 @@ type AsyncComponentType<P> = React.FC<P> & {
 
 function createAsyncComponent<P>(
   componentGetter: AsyncComponentGetter<P>,
-  options: AsyncComponentOptions = {property: 'default'}
+  options: AsyncComponentOptions<P> = {property: 'default'}
 ): AsyncComponentType<P> {
   const {property = 'default', loading, error} = options
   let cachedComponent: ModuleComponent<P>
