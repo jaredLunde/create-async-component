@@ -1,39 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`createAsyncComponent .load() should prevent loading state in production 1`] = `
+exports[`createAsyncComponent returns error state: Error loading bar: Error! 1`] = `
 <DocumentFragment>
   <div>
-    Hello world
+    Error loading bar: Error!
   </div>
 </DocumentFragment>
 `;
 
-exports[`createAsyncComponent displays error state 1`] = `
-<DocumentFragment>
-  Error!
-</DocumentFragment>
-`;
-
-exports[`createAsyncComponent displays loading state 1`] = `
-<DocumentFragment>
-  Loading...
-</DocumentFragment>
-`;
-
-exports[`createAsyncComponent resolves promise 1`] = `
+exports[`createAsyncComponent returns loading state: Hello world bar 1`] = `
 <DocumentFragment>
   <div>
-    Hello world
+    Hello world bar
   </div>
 </DocumentFragment>
 `;
 
-exports[`createAsyncComponent returns null if error occured without error handling component 1`] = `<DocumentFragment />`;
-
-exports[`createAsyncComponent should cache on first load in production 1`] = `
+exports[`createAsyncComponent returns loading state: Loading bar... 1`] = `
 <DocumentFragment>
   <div>
-    Hello world
+    Loading bar...
+  </div>
+</DocumentFragment>
+`;
+
+exports[`createAsyncComponent returns null error state: Empty DocumentFragment 1`] = `<DocumentFragment />`;
+
+exports[`createAsyncComponent should cache component in production: Hello world bar [cached] 1`] = `
+<DocumentFragment>
+  <div>
+    Hello world bar
+  </div>
+</DocumentFragment>
+`;
+
+exports[`createAsyncComponent should cache component in production: Hello world bar 1`] = `
+<DocumentFragment>
+  <div>
+    Hello world bar
+  </div>
+</DocumentFragment>
+`;
+
+exports[`createAsyncComponent should preload and cache component in production: Hello world bar 1`] = `
+<DocumentFragment>
+  <div>
+    Hello world bar
+  </div>
+</DocumentFragment>
+`;
+
+exports[`createAsyncComponent should preload component: Hello world bar 1`] = `
+<DocumentFragment>
+  <div>
+    Hello world bar
   </div>
 </DocumentFragment>
 `;
@@ -41,7 +61,7 @@ exports[`createAsyncComponent should cache on first load in production 1`] = `
 exports[`createAsyncComponent works w/ class component 1`] = `
 <DocumentFragment>
   <div>
-    Hello world
+    Hello world bar
   </div>
 </DocumentFragment>
 `;
@@ -49,7 +69,7 @@ exports[`createAsyncComponent works w/ class component 1`] = `
 exports[`createAsyncComponent works w/ function component 1`] = `
 <DocumentFragment>
   <div>
-    Hello world
+    Hello world bar
   </div>
 </DocumentFragment>
 `;

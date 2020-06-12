@@ -29,21 +29,27 @@
 <pre align="center">npm i create-async-component</pre>
 <hr>
 
-A factory function for creating asynchronous React components
+A factory function for creating asynchronous React components.
 
 ## Quick Start
 
 ```jsx harmony
+import * as React from 'react'
 import createAsyncComponent from 'create-async-component'
 
-const AsyncComponent = createAsyncComponent(() => import('./Home'), {
-  loading: () => <div>Loading...</div>,
-  error: () => <div>Error!</div>,
-  property: 'default',
-})
+const AsyncComponent = createAsyncComponent(
+  () => import('./Home').then((mod) => mod.default),
+  {
+    loading: (homeProps) => <div>Loading...</div>,
+    error: (exception, homeProps) => <div>Error!</div>,
+  }
+)
 
-// Preload your component
+// Optionally preload the component
 AsyncComponent.load()
+
+// Use the component as you would any other component
+<AsyncComponent foo='bar'/>
 ```
 
 ## API
@@ -51,19 +57,21 @@ AsyncComponent.load()
 ```typescript
 function createAsyncComponent<P>(
   componentGetter: AsyncComponentGetter<P>,
-  options: AsyncComponentOptions = {property: 'default'}
-): React.FC<P>
+  options: AsyncComponentOptions<P> = {}
+): AsyncComponent<P>
 ```
 
-| Argument        | Type                                              | Required? | Description                                                   |
-| --------------- | ------------------------------------------------- | --------- | ------------------------------------------------------------- |
-| componentGetter | [`AsyncComponentGetter`](#asynccomponentgetter)   | Yes       | A function that returns a Promise e.g. an `import()` function |
-| options         | [`AsyncComponentOptions`](#asynccomponentoptions) | No        | See [`AsyncComponentOptions`](#asynccomponentoptions)         |
+| Argument        | Type                                              | Required? | Description                                                                                                   |
+| --------------- | ------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------- |
+| componentGetter | [`AsyncComponentGetter`](#asynccomponentgetter)   | Yes       | A function that returns a React component or a promise that resolves a React component                        |
+| options         | [`AsyncComponentOptions`](#asynccomponentoptions) | No        | Optionally adds `loading` and `error` state components. See [`AsyncComponentOptions`](#asynccomponentoptions) |
+
+### Returns [`AsyncComponent`](#asynccomponent)
 
 ### Preload your component
 
-```typescript
-// Simply call its load() metod
+```tsx
+// Simply call its load() method
 AsyncComponent.load()
 // Real world example
 <Link onMouseEnter={AsyncComponent.load}/>
@@ -72,31 +80,36 @@ AsyncComponent.load()
 ### `AsyncComponentGetter`
 
 ```typescript
-export type AsyncComponentGetter<P> = () => ModuleComponentInterop<P>
-
-export type ModuleComponent<P = any> = {
-  [property: string]: React.FunctionComponent<P> | React.ClassType<P, any, any>
-}
-
-export type ModuleComponentInterop<P> =
-  | Promise<ModuleComponent<P>>
-  | ModuleComponent<P>
+export type AsyncComponentGetter<P> = () => AsyncComponentInterop<P>
+export type AsyncComponentInterop<P> =
+  | Promise<React.ComponentType<P>>
+  | React.ComponentType<P>
 ```
 
 ### `AsyncComponentOptions`
 
 ```typescript
-interface AsyncComponentOptions<P> {
-  // The property within the module object where
-  // your component resides.
-  // Default: "default"
-  property?: string
-  // A component you'd like to display while the async
-  // component is loading.
-  loading?: (props: P) => React.ReactNode | React.ReactNode[]
-  // A component you'd like to display when the async
-  // component is Promise is rejected.
-  error?: (exception: any, props: P) => React.ReactNode | React.ReactNode[]
+export interface AsyncComponentOptions<P> {
+  /**
+   * This component will be renderered while the async component is loading
+   */
+  loading?: React.FC<P>
+  /**
+   * This component will be renderered when there is an error getting
+   * the async component
+   */
+  error?: (exception: any, props: P) => ReturnType<React.FC<P>>
+}
+```
+
+### `AsyncComponent`
+
+```typescript
+export interface AsyncComponent<P> extends React.FC<P> {
+  /**
+   * Starts preloading the asynchronous component
+   */
+  load: () => Promise<React.ComponentType<P>>
 }
 ```
 
