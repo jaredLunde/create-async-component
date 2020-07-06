@@ -46,7 +46,8 @@
     "dev": "lundle build -f module,cjs -w",
     "format": "prettier --write \"{,!(node_modules|dist|coverage)/**/}*.{ts,tsx,js,jsx,md,yml,json}\"",
     "lint": "eslint . --ext .ts,.tsx",
-    "prepublishOnly": "npm run lint && npm run test && npm run build && npm run format",
+    "prerelease": "npm run validate && npm run build",
+    "release": "git add . && standard-version -a",
     "test": "jest",
     "validate": "lundle check-types && npm run lint && jest --coverage"
   },
@@ -63,6 +64,16 @@
     "**/*.{md,yml,json}": [
       "prettier --write"
     ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -103,6 +114,8 @@
     "bracketSpacing": false
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@testing-library/react-hooks": "latest",
@@ -111,16 +124,18 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "babel-jest": "latest",
+    "cz-conventional-changelog": "^3.2.0",
     "eslint": "latest",
     "eslint-config-lunde": "latest",
     "husky": "latest",
     "jest": "latest",
     "lint-staged": "latest",
-    "lundle": "latest",
+    "lundle": "^0.4.9",
     "prettier": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-test-renderer": "latest",
+    "standard-version": "^8.0.0",
     "typescript": "latest"
   },
   "dependencies": {},
